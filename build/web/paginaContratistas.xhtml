@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Univalle</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <p:layout fullPage="true">
+
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                    Aplicaciones Multinivel
+                </p:layoutUnit>
+
+                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+                    Univalle
+                </p:layoutUnit>
+
+                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                    <form>
+                        <p:menu>
+                        <p:submenu label="Resources">
+                            <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
+                            <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
+                            <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
+                            <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
+
+                        </p:submenu>
+
+                    </p:menu>
+                    </form>
+                </p:layoutUnit>
+
+                <p:layoutUnit position="center">
+                    <h:form id="formularioContratista">
+                        <p:messages id="mensajes" showDetail="true"/>
+                        <p:panelGrid columns ="4">
+                            <h:outputText value="Nit:"/>
+                            <p:inputText id="txtNit" binding="#{contratistaVista.txtNitContratista}" rendered="true" requiredMessage="El nit es obligatorio"/>
+                            <h:outputText value="Nombre:"/>
+                            <p:inputText id="txtNombre" binding="#{contratistaVista.txtNombreContratista}"/>
+                            <h:outputText value="Estado:"/>
+                            <p:selectOneMenu id="cmbEstado" binding="#{contratistaVista.cmbEstadoContratista}">
+                                <f:selectItem itemLabel="ACTIVO" itemValue="ACTIVO"/>
+                                <f:selectItem itemLabel="INACTIVO" itemValue="INACTIVO"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <p:commandButton value="Registrar" actionListener="#{contratistaVista.registrarContratista()}" update="formularioContratista"/>
+                           
+                        <p:dataTable var="c" value="#{contratistaVista.listaContratistas}" rows="10"
+                                     paginator="true"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     rowsPerPageTemplate="5,10,15">
+                            <p:column headerText="Nit">
+                                <h:outputText value="#{c.nitcontratista}" />
+                            </p:column>
+
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{c.nombrecontratista}" />
+                            </p:column>
+
+                            <p:column headerText="Estado">
+                                <h:outputText value="#{c.estadocontratista}" />
+                            </p:column>
+                            
+                            <p:column headerText="Contratos">
+                                <h:outputText value="#{c.contratosList.size()}" />
+                            </p:column>
+                            
+                            <f:facet name="paginatorTopLeft">
+                                <p:commandButton type="button" icon="pi pi-refresh" />
+                            </f:facet>
+
+                            <f:facet name="paginatorBottomRight">
+                                <p:commandButton type="button" icon="pi pi-cloud-upload" />
+                            </f:facet>
+
+                        </p:dataTable>
+                    </h:form>
+                </p:layoutUnit>
+
+            </p:layout>
+
+        </h:body>
+
+    </f:view>
+</html>
+
