@@ -26,10 +26,10 @@ public class EmpleadoLogica implements EmpleadoLogicaLocal {
     @Override
     public void RegistrarEmpleado(Empleado e) throws Exception {
          if (e == null) {
-            throw new Exception("ERROR 345, el sistema se autodestruirá");
+            throw new Exception("Error, los campos deben estar llenos");
         }
         if (e.getCedulaempleado()== 0) {
-            throw new Exception ("cedula obligatorio");
+            throw new Exception ("Cedula obligatoria");
         }
         if (e.getNombreempleado().equals("")) {
             throw new Exception ("Nombre obligatorio");
@@ -38,12 +38,12 @@ public class EmpleadoLogica implements EmpleadoLogicaLocal {
             throw new Exception ("Apellido obligatorio");
         }
         if (e.getEstadoempleado().equals("")) {
-            throw new Exception ("Estado del epleado obligatorio");
+            throw new Exception ("Estado del empleado obligatorio");
         }
         
         Empleado objetoContratista= empleadoDAO.findxCedula(e.getCedulaempleado());
         if(objetoContratista != null){
-            throw new Exception ("El Empleado ya existee!!");
+            throw new Exception ("El Empleado ya existe");
         }
         empleadoDAO.create(e);
     }

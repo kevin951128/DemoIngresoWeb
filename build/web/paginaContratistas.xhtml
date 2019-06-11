@@ -5,13 +5,13 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-    <f:view contentType="text/html">
-        <h:head>
-            <f:facet name="first">
-                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>Univalle</title>
-            </f:facet>
-        </h:head>
+        <f:view contentType="text/html">
+            <h:head>
+                <f:facet name="first">
+                    <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                    <title>Univalle</title>
+                </f:facet>
+            </h:head>
 
         <h:body>
 
@@ -28,15 +28,15 @@
                 <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
                     <form>
                         <p:menu>
-                        <p:submenu label="Resources">
-                            <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
-                            <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
-                            <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
-                            <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
+                            <p:submenu label="Resources">
+                                <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
+                                <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
+                                <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
+                                <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
 
-                        </p:submenu>
+                            </p:submenu>
 
-                    </p:menu>
+                        </p:menu>
                     </form>
                 </p:layoutUnit>
 
@@ -55,7 +55,7 @@
                             </p:selectOneMenu>
                         </p:panelGrid>
                         <p:commandButton value="Registrar" actionListener="#{contratistaVista.registrarContratista()}" update="formularioContratista"/>
-                           
+
                         <p:dataTable var="c" value="#{contratistaVista.listaContratistas}" rows="10"
                                      paginator="true"
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
@@ -71,11 +71,11 @@
                             <p:column headerText="Estado">
                                 <h:outputText value="#{c.estadocontratista}" />
                             </p:column>
-                            
+
                             <p:column headerText="Contratos">
                                 <h:outputText value="#{c.contratosList.size()}" />
                             </p:column>
-                            
+
                             <f:facet name="paginatorTopLeft">
                                 <p:commandButton type="button" icon="pi pi-refresh" />
                             </f:facet>

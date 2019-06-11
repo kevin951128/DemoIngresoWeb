@@ -91,9 +91,9 @@ public class ContratistaVista {
             nuevoContratista.setEstadocontratista(cmbEstadoContratista.getValue().toString());
             
             contratistaLogica.registrarContratista(nuevoContratista);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Buena campeón", "Se registró correctamente"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Muy bien:", "Se registró correctamente"));
         } catch (Exception ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Buena campeón", ex.getMessage()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", ex.getMessage()));
             Logger.getLogger(ContratistaVista.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

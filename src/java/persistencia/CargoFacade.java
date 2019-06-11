@@ -33,13 +33,13 @@ public class CargoFacade extends AbstractFacade<Cargo> implements CargoFacadeLoc
 
     @Override
     public Cargo findxCodigo(Integer codigo) {
-               String consulta = "select c from Contratista c where c.nitcontratista= "+ codigo;
+        String consulta = "select ca from Cargo ca where ca.codigocargo= " + codigo;
         try {
             Query query = em.createQuery(consulta);
-        return (Cargo) query.getSingleResult();
+            return (Cargo) query.getSingleResult();
         } catch (NoResultException nre) {
             return null;
         }
     }
-    
+
 }

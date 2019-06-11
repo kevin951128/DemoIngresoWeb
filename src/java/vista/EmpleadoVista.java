@@ -13,6 +13,7 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import logica.CargoLogicaLocal;
 import logica.EmpleadoLogicaLocal;
 import modelo.Empleado;
 import modelo.Cargo;
@@ -32,17 +33,21 @@ public class EmpleadoVista {
 
     @EJB
     private EmpleadoLogicaLocal empleadoLogica;
+    @EJB 
+    private CargoLogicaLocal cargoLogica;
     private List<Empleado> listaEmpleado;
     private InputText txtCedulaEmpleado;
     private InputText txtNombreEmpleado;
     private InputText txtApellidoEmpleado;
     private InputText txtTelefonoEmpleado;
 
-    private CargoFacadeLocal cargoDAO;
+    
+    
     
     private SelectOneMenu cmbEstadoEmpleado;
     private SelectOneMenu cmbCodigoCargo;
     private CommandButton bntRegistrar;
+    private Cargo c = new Cargo();
     
     
 
@@ -122,16 +127,18 @@ public class EmpleadoVista {
             nuevoEmpleado.setNombreempleado(txtNombreEmpleado.getValue().toString());
             nuevoEmpleado.setApellidoempleado(txtApellidoEmpleado.getValue().toString());
             nuevoEmpleado.setTelefonoempleado(txtTelefonoEmpleado.getValue().toString());
-            Cargo c = new Cargo();
-            c = cargoDAO.findxCodigo(Integer.parseInt(cmbCodigoCargo.getValue().toString()));
+            c = cargoLogica.consultarxCodigo(Integer.parseInt(cmbCodigoCargo.getValue().toString()));
             nuevoEmpleado.setCodigocargo(c);
             nuevoEmpleado.setEstadoempleado(cmbEstadoEmpleado.getValue().toString());
             
+            System.out.println("Cargo: "+c.getNombrecargo() + "Entró");
+            
             empleadoLogica.RegistrarEmpleado(nuevoEmpleado);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Buena campeón", "Se registró correctamente"));
-        } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Buena campeón", "aqui falta el ex"));
-            Logger.getLogger(ContratistaVista.class.getName()).log(Level.SEVERE, null, "aqui falta el ex");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Muy bien:", "Se registró correctamente"));
+        } catch (Exception ex) {
+            System.out.println("Cargo: "+c.getNombrecargo() + "No entró");
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", c.getNombrecargo() + " carguito"));
+            Logger.getLogger(EmpleadoVista.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
