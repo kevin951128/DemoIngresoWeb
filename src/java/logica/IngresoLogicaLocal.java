@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package persistencia;
+package logica;
 
 import java.util.List;
 import javax.ejb.Local;
@@ -14,20 +14,7 @@ import modelo.Ingreso;
  * @author Kevin
  */
 @Local
-public interface IngresoFacadeLocal {
-
-    void create(Ingreso ingreso);
-
-    void edit(Ingreso ingreso);
-
-    void remove(Ingreso ingreso);
-
-    Ingreso find(Object id);
-    
-    List<Ingreso> findAll();
-
-    List<Ingreso> findRange(int[] range);
-
-    int count();
-    
+public interface IngresoLogicaLocal {
+    public void registrarIngreso(Ingreso i) throws Exception;
+    public List<Ingreso> consultarIngresos();
 }

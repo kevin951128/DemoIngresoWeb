@@ -23,6 +23,8 @@ public interface EmpleadoFacadeLocal {
     void remove(Empleado empleado);
 
     Empleado find(Object id);
+    
+    Empleado findxCedula(long cedula);
 
     List<Empleado> findAll();
 

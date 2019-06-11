@@ -7,7 +7,9 @@ package persistencia;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import modelo.Ingreso;
 
 /**
@@ -28,5 +30,5 @@ public class IngresoFacade extends AbstractFacade<Ingreso> implements IngresoFac
     public IngresoFacade() {
         super(Ingreso.class);
     }
-    
+  
 }

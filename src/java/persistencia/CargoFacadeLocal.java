@@ -23,6 +23,8 @@ public interface CargoFacadeLocal {
     void remove(Cargo cargo);
 
     Cargo find(Object id);
+    
+    Cargo findxCodigo(Integer codigo);
 
     List<Cargo> findAll();
 
