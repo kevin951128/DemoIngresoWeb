@@ -131,13 +131,11 @@ public class EmpleadoVista {
             nuevoEmpleado.setCodigocargo(c);
             nuevoEmpleado.setEstadoempleado(cmbEstadoEmpleado.getValue().toString());
             
-            System.out.println("Cargo: "+c.getNombrecargo() + "Entró");
             
             empleadoLogica.RegistrarEmpleado(nuevoEmpleado);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Muy bien:", "Se registró correctamente"));
         } catch (Exception ex) {
-            System.out.println("Cargo: "+c.getNombrecargo() + "No entró");
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", c.getNombrecargo() + " carguito"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", ex.getMessage()));
             Logger.getLogger(EmpleadoVista.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

@@ -5,13 +5,13 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-        <f:view contentType="text/html">
-            <h:head>
-                <f:facet name="first">
-                    <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                    <title>Univalle</title>
-                </f:facet>
-            </h:head>
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Univalle</title>
+            </f:facet>
+        </h:head>
 
         <h:body>
 
@@ -26,24 +26,21 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
-                    <form>
+                    <h:form>
                         <p:menu>
                             <p:submenu label="Resources">
-                                <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
-                                <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
-                                <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
-                                <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
-
+                                <p:menuitem value="Contratista" url="" />
+                                <p:menuitem value="Ingreso" url="" />
+                                <p:menuitem value="Empleados" url="" />
                             </p:submenu>
-
                         </p:menu>
-                    </form>
+                    </h:form>
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">
                     <h:form id="formularioContratista">
                         <p:messages id="mensajes" showDetail="true"/>
-                        <p:panelGrid columns ="4">
+                        <p:panelGrid columns ="6" id="panelC">
                             <h:outputText value="Nit:"/>
                             <p:inputText id="txtNit" binding="#{contratistaVista.txtNitContratista}" rendered="true" requiredMessage="El nit es obligatorio"/>
                             <h:outputText value="Nombre:"/>
@@ -54,12 +51,34 @@
                                 <f:selectItem itemLabel="INACTIVO" itemValue="INACTIVO"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
-                        <p:commandButton value="Registrar" actionListener="#{contratistaVista.registrarContratista()}" update="formularioContratista"/>
+                        <p:commandButton value="Registrar" 
+                                         actionListener="#{contratistaVista.registrarContratista()}" 
+                                         update="formularioContratista"/>
+                        <p:commandButton value="Modificar" 
+                                         actionListener="#{contratistaVista.modificarContratista()}" 
+                                         update="formularioContratista"/>
+                        <p:commandButton value="Eliminar" 
+                                         action="#{contratistaVista.eliminarContratista()}" 
+                                         update="formularioContratista">
+                            <p:confirm header="Confirmación" message="¿Está seguro maldito mortal?" icon="pi pi-exclamation-triangle" />
+                        </p:commandButton>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                        </p:confirmDialog> 
+
 
                         <p:dataTable var="c" value="#{contratistaVista.listaContratistas}" rows="10"
                                      paginator="true"
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="5,10,15">
+                                     rowsPerPageTemplate="5,10,15"
+                                     selection="#{contratistaVista.selectedContratista}"
+                                     selectionMode="single"
+                                     rowKey="#{c.codigocontratista}">
+                            <p:ajax event="rowSelect" 
+                                    listener="#{contratistaVista.seleccionarContratista}" 
+                                    update=":formularioContratista:panelC" />
                             <p:column headerText="Nit">
                                 <h:outputText value="#{c.nitcontratista}" />
                             </p:column>

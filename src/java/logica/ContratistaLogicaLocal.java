@@ -15,10 +15,11 @@ import modelo.Contratista;
  */
 @Local
 public interface ContratistaLogicaLocal {
+
     public void registrarContratista(Contratista c) throws Exception;
     public List<Contratista> consultarContratistas();
     public Contratista consultarxCodigo(Integer codigo) throws Exception;
+    public void modificarContratista(Contratista c) throws Exception;
+    public void eliminarContratista (Contratista c) throws Exception;
 
-    
-    
 }
