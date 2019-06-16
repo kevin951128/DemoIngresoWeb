@@ -119,6 +119,15 @@ public class EmpleadoVista {
         this.bntRegistrar = bntRegistrar;
     }
 
+    public Empleado getSelectedEmpleado() {
+        return selectedEmpleado;
+    }
+
+    public void setSelectedEmpleado(Empleado selectedEmpleado) {
+        this.selectedEmpleado = selectedEmpleado;
+    }
+
+    
     public void registrarEmpleado() {
         try {
             Empleado nuevoEmpleado = new Empleado();
