@@ -20,6 +20,7 @@ import modelo.Cargo;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
+import org.primefaces.event.SelectEvent;
 import persistencia.CargoFacadeLocal;
 
 /**
@@ -33,23 +34,19 @@ public class EmpleadoVista {
 
     @EJB
     private EmpleadoLogicaLocal empleadoLogica;
-    @EJB 
+    @EJB
     private CargoLogicaLocal cargoLogica;
+    
     private List<Empleado> listaEmpleado;
     private InputText txtCedulaEmpleado;
     private InputText txtNombreEmpleado;
     private InputText txtApellidoEmpleado;
     private InputText txtTelefonoEmpleado;
-
-    
-    
-    
     private SelectOneMenu cmbEstadoEmpleado;
     private SelectOneMenu cmbCodigoCargo;
     private CommandButton bntRegistrar;
     private Cargo c = new Cargo();
-    
-    
+    private Empleado selectedEmpleado;
 
     /**
      * Creates a new instance of EmpleadoVista
@@ -81,6 +78,7 @@ public class EmpleadoVista {
     public void setTxtNombreEmpleado(InputText txtNombreEmpleado) {
         this.txtNombreEmpleado = txtNombreEmpleado;
     }
+
     public InputText getTxtApellidoEmpleado() {
         return txtApellidoEmpleado;
     }
@@ -120,7 +118,8 @@ public class EmpleadoVista {
     public void setBntRegistrar(CommandButton bntRegistrar) {
         this.bntRegistrar = bntRegistrar;
     }
-    public void registrarEmpleado (){
+
+    public void registrarEmpleado() {
         try {
             Empleado nuevoEmpleado = new Empleado();
             nuevoEmpleado.setCedulaempleado(Long.parseLong(txtCedulaEmpleado.getValue().toString()));
@@ -130,10 +129,48 @@ public class EmpleadoVista {
             c = cargoLogica.consultarxCodigo(Integer.parseInt(cmbCodigoCargo.getValue().toString()));
             nuevoEmpleado.setCodigocargo(c);
             nuevoEmpleado.setEstadoempleado(cmbEstadoEmpleado.getValue().toString());
-            
-            
+
             empleadoLogica.RegistrarEmpleado(nuevoEmpleado);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Muy bien:", "Se registró correctamente"));
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", ex.getMessage()));
+            Logger.getLogger(EmpleadoVista.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void seleccionarEmpleado(SelectEvent e) {
+        selectedEmpleado = (Empleado) e.getObject();
+        txtCedulaEmpleado.setValue(selectedEmpleado.getCedulaempleado());
+        txtNombreEmpleado.setValue(selectedEmpleado.getNombreempleado());
+        txtApellidoEmpleado.setValue(selectedEmpleado.getApellidoempleado());
+        txtTelefonoEmpleado.setValue(selectedEmpleado.getTelefonoempleado());
+        cmbEstadoEmpleado.setValue(selectedEmpleado.getEstadoempleado());
+        cmbCodigoCargo.setValue(selectedEmpleado.getCodigocargo());
+    }
+
+    public void modificarEmpleado() {
+        try {
+            Empleado nuevoEmpleado = selectedEmpleado;
+            nuevoEmpleado.setCedulaempleado(Long.parseLong(txtCedulaEmpleado.getValue().toString()));
+            nuevoEmpleado.setNombreempleado(txtNombreEmpleado.getValue().toString());
+            nuevoEmpleado.setApellidoempleado(txtApellidoEmpleado.getValue().toString());
+            nuevoEmpleado.setTelefonoempleado(txtTelefonoEmpleado.getValue().toString());
+            c = cargoLogica.consultarxCodigo(Integer.parseInt(cmbCodigoCargo.getValue().toString()));
+            nuevoEmpleado.setCodigocargo(c);
+            nuevoEmpleado.setEstadoempleado(cmbEstadoEmpleado.getValue().toString());
+
+            empleadoLogica.modificarEmpleado(nuevoEmpleado);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Muy bien:", "Se modificó correctamente"));
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", ex.getMessage()));
+            Logger.getLogger(ContratistaVista.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void eliminarEmpleado() {
+        try {
+            empleadoLogica.eliminarEmpleado(selectedEmpleado);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Muy bien:", "Se eliminó correctamente"));
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", ex.getMessage()));
             Logger.getLogger(EmpleadoVista.class.getName()).log(Level.SEVERE, null, ex);

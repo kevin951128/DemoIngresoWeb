@@ -34,16 +34,30 @@ public class IngresoVista {
     private InputText txtNombreContratista;
     private SelectOneMenu cmbEstadoContratista;
     private CommandButton bntRegistrar;
+    private Ingreso selectedIngreso;
 
     /**
      * Creates a new instance of IngresoVista
      */
-    public IngresoVista() {
-        
-        
-        
-                
-        
+    public IngresoVista() {    
     }
+
+    public List<Ingreso> getListaIngresos() {
+        listaIngresos = ingresoLogica.consultarIngresos();
+        return listaIngresos;
+    }
+
+    public void setListaIngresos(List<Ingreso> listaIngresos) {
+        this.listaIngresos = listaIngresos;
+    }
+
+    public Ingreso getSelectedIngreso() {
+        return selectedIngreso;
+    }
+
+    public void setSelectedIngreso(Ingreso selectedIngreso) {
+        this.selectedIngreso = selectedIngreso;
+    }
+    
     
 }

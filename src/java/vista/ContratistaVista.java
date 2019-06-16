@@ -153,7 +153,7 @@ public class ContratistaVista {
             contratistaLogica.modificarContratista(nuevoContratista);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Muy bien:", "Se modificó correctamente"));
         } catch (Exception ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", ex.getMessage()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", ex.getMessage()));
             Logger.getLogger(ContratistaVista.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -163,7 +163,7 @@ public class ContratistaVista {
             contratistaLogica.eliminarContratista(selectedContratista);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Muy bien:", "Se eliminó correctamente"));
         } catch (Exception ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", ex.getMessage()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", ex.getMessage()));
             Logger.getLogger(ContratistaVista.class.getName()).log(Level.SEVERE, null, ex);
         }
      }

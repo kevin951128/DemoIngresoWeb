@@ -18,20 +18,20 @@
             <p:layout fullPage="true">
 
                 <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                    Aplicaciones Multinivel
+                    Aplicación Web Multinivel
                 </p:layoutUnit>
 
                 <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
-                    Univalle
+                    Derechos reservados :D
                 </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                <p:layoutUnit position="west" size="175" header="Menú" collapsible="true">
                     <h:form>
                         <p:menu>
                             <p:submenu label="Resources">
-                                <p:menuitem value="Contratista" url="" />
-                                <p:menuitem value="Ingreso" url="" />
-                                <p:menuitem value="Empleados" url="" />
+                                <p:menuitem value="Contratista" url="paginaContratistas.xhtml" />
+                                <p:menuitem value="Ingreso" url="paginaIngreso.xhtml" />
+                                <p:menuitem value="Empleados" url="paginaEmpleado.xhtml" />
                             </p:submenu>
                         </p:menu>
                     </h:form>
@@ -60,7 +60,7 @@
                         <p:commandButton value="Eliminar" 
                                          action="#{contratistaVista.eliminarContratista()}" 
                                          update="formularioContratista">
-                            <p:confirm header="Confirmación" message="¿Está seguro maldito mortal?" icon="pi pi-exclamation-triangle" />
+                            <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar contratista?" icon="pi pi-exclamation-triangle" />
                         </p:commandButton>
 
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">

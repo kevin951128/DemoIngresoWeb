@@ -60,4 +60,37 @@ public class EmpleadoLogica implements EmpleadoLogicaLocal {
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+
+    @Override
+    public void modificarEmpleado(Empleado e) throws Exception {
+        if (e == null) {
+            throw new Exception("Error, los campos son obligatorios");
+        }
+        if (e.getCedulaempleado()== 0) {
+            throw new Exception("Cédula obligatoria");
+        }
+        if (e.getNombreempleado().equals("")) {
+            throw new Exception("Nombre obligatorio");
+        }
+
+        Empleado objetoEmpleado = empleadoDAO.findxCedula(e.getCedulaempleado());
+        if (objetoEmpleado == null) {
+            throw new Exception("El empleado no existe");
+        }
+        empleadoDAO.edit(e);
+    }
+    
+    
+    @Override
+    public void eliminarEmpleado(Empleado e) throws Exception {
+        if (e == null) {
+            throw new Exception("Error, los campos son obligatorios");
+        }
+        
+        Empleado objetoEmpleado = empleadoDAO.find(e.getCodigoempleado());
+        if (objetoEmpleado == null) {
+            throw new Exception("El empleado no existe");
+        }
+        empleadoDAO.remove(e);
+    }
 }

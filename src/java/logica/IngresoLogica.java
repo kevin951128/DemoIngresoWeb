@@ -32,6 +32,6 @@ public class IngresoLogica implements IngresoLogicaLocal {
 
     @Override
     public List<Ingreso> consultarIngresos() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return ingresoDAO.findAll();
     }
 }

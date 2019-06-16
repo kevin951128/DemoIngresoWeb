@@ -18,4 +18,6 @@ public interface EmpleadoLogicaLocal {
     public void RegistrarEmpleado(Empleado e) throws Exception;
     public List<Empleado> ConsultarEmpleados();
     public Empleado Consultarxcedula(Integer cedula) throws Exception;
+    public void modificarEmpleado (Empleado e) throws Exception;
+    public void eliminarEmpleado (Empleado e) throws Exception;
 }

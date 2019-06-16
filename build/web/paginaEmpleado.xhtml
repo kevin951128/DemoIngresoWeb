@@ -18,20 +18,20 @@
             <p:layout fullPage="true">
 
                 <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                    Aplicaciones Multinivel
+                    Aplicación Web Multinivel
                 </p:layoutUnit>
 
                 <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
-                    Univalle
+                    Derechos reservados :D
                 </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
+                <p:layoutUnit position="west" size="175" header="Menú" collapsible="true">
                     <h:form>
                         <p:menu>
                             <p:submenu label="Resources">
-                                <p:menuitem value="Contratista" url="" />
-                                <p:menuitem value="Ingreso" url="" />
-                                <p:menuitem value="Empleados" url="" />
+                                <p:menuitem value="Contratista" url="paginaContratistas.xhtml" />
+                                <p:menuitem value="Ingreso" url="paginaIngreso.xhtml" />
+                                <p:menuitem value="Empleados" url="paginaEmpleado.xhtml" />
                             </p:submenu>
                         </p:menu>
                     </h:form>
@@ -41,7 +41,7 @@
 
                     <h:form id="formularioEmpleado">
                         <p:messages id="mensajes" showDetail="true"/>
-                        <p:panelGrid columns ="6">
+                        <p:panelGrid columns ="6" id="panelE">
                             <h:outputText value="Número cédula"/>
                             <p:inputText id="txtCedula" binding="#{empleadoVista.txtCedulaEmpleado}" rendered="true" requiredMessage="La cedula es obligatorio"/>
                             <h:outputText value="Nombre:"/>
@@ -61,12 +61,34 @@
                                 <f:selectItem itemLabel="INACTIVO" itemValue="INACTIVO"/>
                             </p:selectOneMenu>
                         </p:panelGrid>
-                        <p:commandButton value="Registrar" actionListener="#{empleadoVista.registrarEmpleado()}" update="formularioEmpleado"/>
+                        <p:commandButton value="Registrar" 
+                                         actionListener="#{empleadoVista.registrarEmpleado()}" 
+                                         update="formularioEmpleado"/>
+                        <p:commandButton value="Modificar" 
+                                         actionListener="#{empleadoVista.modificarEmpleado()}" 
+                                         update="formularioEmpleado"/>
+                        <p:commandButton value="Eliminar" 
+                                         action="#{empleadoVista.eliminarEmpleado()}" 
+                                         update="formularioEmpleado">
+                            <p:confirm header="Confirmación" 
+                                       message="¿Está seguro que desea eliminar empleado?"  
+                                       icon="pi pi-exclamation-triangle" />
+                        </p:commandButton>
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+                        </p:confirmDialog>
 
                         <p:dataTable var="e" value="#{empleadoVista.listaEmpleado}" rows="10"
                                      paginator="true"
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     rowsPerPageTemplate="5,10,15">
+                                     rowsPerPageTemplate="5,10,15"
+                                     selection="#{EmpleadoVista.selectedEmpleado}"
+                                     selectionMode="single"
+                                     rowKey="#{e.codigoempleado}">
+                            <p:ajax event="rowSelect" 
+                                    listener="#{empleadoVista.seleccionarEmpleado}" 
+                                    update=":formularioEmpleado:panelE" />
                             <p:column headerText="Cedula">
                                 <h:outputText value="#{e.cedulaempleado}" />
                             </p:column>
