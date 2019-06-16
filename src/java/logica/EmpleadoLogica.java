@@ -91,6 +91,7 @@ public class EmpleadoLogica implements EmpleadoLogicaLocal {
         if (objetoEmpleado == null) {
             throw new Exception("El empleado no existe");
         }
-        empleadoDAO.remove(e);
+        
+        empleadoDAO.remove(objetoEmpleado);
     }
 }
