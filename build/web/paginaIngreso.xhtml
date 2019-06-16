@@ -64,11 +64,11 @@
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="5,10,15">
                             <p:column headerText="Fecha de ingreso">
-                                <h:outputText value="#{i.fechaingreso}" />
+                                <h:outputText value="Día: #{i.fechaingreso.day} Mes: #{i.fechaingreso.month}" />
                             </p:column>
 
                             <p:column headerText="Hora de ingreso">
-                                <h:outputText value="#{i.horaentradaingreso}" />
+                                <h:outputText value="#{i.horaentradaingreso.hours}:#{i.horaentradaingreso.minutes}" />
                             </p:column>
 
                             <p:column headerText="Autorización">
