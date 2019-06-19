@@ -5,12 +5,16 @@
  */
 package vista;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import logica.IngresoLogicaLocal;
 import modelo.Ingreso;
 import org.primefaces.component.commandbutton.CommandButton;
@@ -58,6 +62,13 @@ public class IngresoVista {
     public void setSelectedIngreso(Ingreso selectedIngreso) {
         this.selectedIngreso = selectedIngreso;
     }
-    
+    public void cerrarSesion(){
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("usuario");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(UsuarioVista.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
 }

@@ -5,6 +5,7 @@
  */
 package vista;
 
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -75,6 +76,15 @@ public class UsuarioVista {
             FacesContext.getCurrentInstance().getExternalContext().redirect("admin/paginaContratistas.xhtml");
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", ex.getMessage()));
+            Logger.getLogger(UsuarioVista.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void cerrarSesion(){
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("usuario");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml");
+        } catch (IOException ex) {
             Logger.getLogger(UsuarioVista.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

@@ -5,6 +5,7 @@
  */
 package vista;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -183,6 +184,15 @@ public class EmpleadoVista {
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", ex.getMessage()));
             Logger.getLogger(EmpleadoVista.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void cerrarSesion(){
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("usuario");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml");
+        } catch (IOException ex) {
+            Logger.getLogger(UsuarioVista.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

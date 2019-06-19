@@ -9,7 +9,9 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                
                 <title>Univalle</title>
+                
             </f:facet>
         </h:head>
 
@@ -18,22 +20,17 @@
             <p:layout fullPage="true">
 
                 <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                    <br></br>
+                    <div align="center">
                     Aplicación Web Multinivel
+                    </div>
                 </p:layoutUnit>
 
                 <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
                     Derechos reservados :D
                 </p:layoutUnit>
 
-                <p:layoutUnit position="west" size="175" header="Menú" collapsible="true">
-                    <h:form>
-                        <p:menu>
-                            <p:submenu label="Resources">
-
-                            </p:submenu>
-                        </p:menu>
-                    </h:form>
-                </p:layoutUnit>
+                
 
                 <p:layoutUnit position="center">     
                     <h:form id="formularioIngreso" >
@@ -62,18 +59,11 @@
                                              action="#{usuarioVista.ingresar()}"
                                              style="margin-right:20px;" 
                                              styleClass="ui-priority-primary" />
-
                         </div>
-
-
                     </h:form>
-
                 </p:layoutUnit>
-
             </p:layout>
-
         </h:body>
-
     </f:view>
 </html>
 
