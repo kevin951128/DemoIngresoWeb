@@ -37,6 +37,7 @@
 
                 <p:layoutUnit position="center">     
                     <h:form id="formularioIngreso" >
+                        <p:messages showDetail="true"/>
 
                         <div align="center">
 
@@ -44,13 +45,13 @@
                             <br></br>
                             <h:outputText value="Usuario"/>
                             <br></br>
-                            <p:inputText id="txtUsuario" value="#{usuarioVista.txtUsuario}" 
+                            <p:inputText id="txtUsuario" binding="#{usuarioVista.txtUsuario}" 
                                          required="True" requiredMessage="Usuario obligatoria"/>
 
                             <br></br>
                             <h:outputText value="Contraseña"/>
                             <br></br>
-                            <p:password id="txtClave" value="#{usuarioVista.txtClave}" 
+                            <p:password id="txtClave" binding="#{usuarioVista.txtClave}" 
                                         required="True" requiredMessage="Clave obligatoria"/>
 
                             <br></br>
