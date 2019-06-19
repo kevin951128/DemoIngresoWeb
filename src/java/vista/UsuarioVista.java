@@ -5,8 +5,15 @@
  */
 package vista;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import logica.UsuarioLogicaLocal;
+import modelo.Usuario;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.password.Password;
@@ -19,6 +26,8 @@ import org.primefaces.component.password.Password;
 @RequestScoped
 public class UsuarioVista {
     
+    @EJB
+    private UsuarioLogicaLocal usuarioLogica;
     
     private InputText txtUsuario;
     private Password txtClave;
@@ -55,7 +64,18 @@ public class UsuarioVista {
     }
     
     public void ingresar(){
-        
+        try {
+            Usuario nuevoUsuario = new Usuario();
+            nuevoUsuario.setNombreusuario(txtUsuario.getValue().toString());
+            nuevoUsuario.setClaveusuario(txtClave.getValue().toString());
+            Usuario usuarioLogueado = usuarioLogica.ingresar(nuevoUsuario);
+            //Se guarda al usuario en la sesión
+            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuarioLogueado);
+            //Redireccionamiento a pagina
+            FacesContext.getCurrentInstance().getExternalContext().redirect("admin/paginaContratistas.xhtml");
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", ex.getMessage()));
+            Logger.getLogger(UsuarioVista.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
 }
