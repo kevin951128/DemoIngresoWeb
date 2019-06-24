@@ -17,7 +17,7 @@
 
             <p:layout fullPage="true">
 
-                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true" >
                     <br></br>
                     <div align="center">
                     Aplicación Web Multinivel
@@ -43,61 +43,54 @@
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">
-                    <h:form id="formularioContratista">
+
+                    <h:form id="formularioIngreso">
+                        
                         <p:messages id="mensajes" showDetail="true"/>
-                        <p:panelGrid columns ="6" id="panelC">
-                            <h:outputText value="Nit:"/>
-                            <p:inputText id="txtNit" binding="#{contratistaVista.txtNitContratista}" rendered="true" requiredMessage="El nit es obligatorio"/>
-                            <h:outputText value="Nombre:"/>
-                            <p:inputText id="txtNombre" binding="#{contratistaVista.txtNombreContratista}"/>
-                            <h:outputText value="Estado:"/>
-                            <p:selectOneMenu id="cmbEstado" binding="#{contratistaVista.cmbEstadoContratista}">
-                                <f:selectItem itemLabel="ACTIVO" itemValue="ACTIVO"/>
-                                <f:selectItem itemLabel="INACTIVO" itemValue="INACTIVO"/>
-                            </p:selectOneMenu>
+                        <p:panelGrid columns ="4">
+                            <h:outputText value="Nit empleado:"/>
+                            <p:inputText id="txtNitEmpleado" binding="#{ingresoVista.txtNitEmpleado}"/>
                         </p:panelGrid>
                         <p:commandButton value="Registrar" 
-                                         actionListener="#{contratistaVista.registrarContratista()}" 
-                                         update="formularioContratista"/>
-                        <p:commandButton value="Modificar" 
-                                         actionListener="#{contratistaVista.modificarContratista()}" 
-                                         update="formularioContratista"/>
+                                         actionListener="#{ingresoVista.registrarIngreso()}" 
+                                         update="formularioIngreso"/>
                         <p:commandButton value="Eliminar" 
-                                         action="#{contratistaVista.eliminarContratista()}" 
-                                         update="formularioContratista">
-                            <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar contratista?" icon="pi pi-exclamation-triangle" />
+                                         action="#{ingresoVista.eliminarIngreso()}" 
+                                         update="formularioIngreso">
+                            <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar ingreso?" icon="pi pi-exclamation-triangle" />
                         </p:commandButton>
-
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                             <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
                         </p:confirmDialog> 
+                    
 
-
-                        <p:dataTable var="c" value="#{contratistaVista.listaContratistas}" rows="10"
+                        <p:dataTable var="i" value="#{ingresoVista.ingresosNoAprovados}" rows="10"
                                      paginator="true"
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="5,10,15"
-                                     selection="#{contratistaVista.selectedContratista}"
+                                     selection="#{ingresoVista.selectedIngreso}"
                                      selectionMode="single"
-                                     rowKey="#{c.codigocontratista}">
-                            <p:ajax event="rowSelect" 
-                                    listener="#{contratistaVista.seleccionarContratista}" 
-                                    update=":formularioContratista:panelC" />
-                            <p:column headerText="Nit">
-                                <h:outputText value="#{c.nitcontratista}" />
+                                     rowKey="#{i.numeroingreso}">
+                            <p:column headerText="Fecha de ingreso">
+                                <h:outputText value="Día: #{i.fechaingreso.day} Mes: #{i.fechaingreso.month}" />
                             </p:column>
 
-                            <p:column headerText="Nombre">
-                                <h:outputText value="#{c.nombrecontratista}" />
+                            <p:column headerText="Hora de ingreso">
+                                <h:outputText value="#{i.horaentradaingreso.hours}:#{i.horaentradaingreso.minutes}" />
                             </p:column>
 
-                            <p:column headerText="Estado">
-                                <h:outputText value="#{c.estadocontratista}" />
+                            <p:column headerText="Autorización">
+                                <h:outputText value="#{i.autorizadoingreso}" />
                             </p:column>
 
-                            <p:column headerText="Contratos">
-                                <h:outputText value="#{c.contratosList.size()}" />
+
+                            <p:column headerText="Nombre empleado">
+                                <h:outputText value="#{i.empleadoingreso.nombreempleado}" />
+                            </p:column>
+                            
+                            <p:column headerText="Apellido empleado">
+                                <h:outputText value="#{i.empleadoingreso.apellidoempleado}" />
                             </p:column>
 
                             <f:facet name="paginatorTopLeft">
@@ -110,6 +103,7 @@
 
                         </p:dataTable>
                     </h:form>
+
                 </p:layoutUnit>
 
             </p:layout>

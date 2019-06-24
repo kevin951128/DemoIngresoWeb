@@ -40,6 +40,7 @@ public class IngresoVista {
     private EmpleadoLogicaLocal empleadoLogica;
 
     private List<Ingreso> listaIngresos;
+    private List<Ingreso> ingresosNoAprovados;
     private InputText txtNitEmpleado;
     private CommandButton bntRegistrar;
     private Ingreso selectedIngreso;
@@ -72,6 +73,23 @@ public class IngresoVista {
         return listaIngresos;
     }
 
+    public List<Ingreso> getIngresosNoAprovados() {
+        listaIngresos = ingresoLogica.consultarIngresos();
+        
+        for (int i = 0; i < listaIngresos.size(); i++) {
+            if (listaIngresos.get(i).getAutorizadoingreso().equals("No Autorizado")) {
+                ingresosNoAprovados.add(listaIngresos.get(i));
+            }
+        }
+        return ingresosNoAprovados;
+    }
+
+    public void setIngresosNoAprovados(List<Ingreso> ingresosNoAprovados) {
+        this.ingresosNoAprovados = ingresosNoAprovados;
+    }
+    
+    
+    
     public void setListaIngresos(List<Ingreso> listaIngresos) {
         this.listaIngresos = listaIngresos;
     }
