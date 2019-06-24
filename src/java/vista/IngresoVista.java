@@ -6,7 +6,6 @@
 package vista;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -14,8 +13,12 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import logica.EmpleadoLogica;
+import logica.EmpleadoLogicaLocal;
 import logica.IngresoLogicaLocal;
+import modelo.Empleado;
 import modelo.Ingreso;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
@@ -29,21 +32,38 @@ import persistencia.IngresoFacadeLocal;
 @Named(value = "ingresoVista")
 @RequestScoped
 public class IngresoVista {
+
     @EJB
-        
     private IngresoLogicaLocal ingresoLogica;
-    
+    @EJB
+    private EmpleadoLogicaLocal empleadoLogica;
+
     private List<Ingreso> listaIngresos;
-    private Date txtNitContratista;
-    private InputText txtNombreContratista;
-    private SelectOneMenu cmbEstadoContratista;
+    private InputText txtNitEmpleado;
     private CommandButton bntRegistrar;
     private Ingreso selectedIngreso;
+    private Empleado e = new Empleado();
 
     /**
      * Creates a new instance of IngresoVista
      */
-    public IngresoVista() {    
+    public IngresoVista() {
+    }
+
+    public InputText getTxtNitEmpleado() {
+        return txtNitEmpleado;
+    }
+
+    public void setTxtNitEmpleado(InputText txtNitEmpleado) {
+        this.txtNitEmpleado = txtNitEmpleado;
+    }
+
+    public CommandButton getBntRegistrar() {
+        return bntRegistrar;
+    }
+
+    public void setBntRegistrar(CommandButton bntRegistrar) {
+        this.bntRegistrar = bntRegistrar;
     }
 
     public List<Ingreso> getListaIngresos() {
@@ -62,7 +82,30 @@ public class IngresoVista {
     public void setSelectedIngreso(Ingreso selectedIngreso) {
         this.selectedIngreso = selectedIngreso;
     }
-    public void cerrarSesion(){
+
+    public void registrarIngreso() {
+        try {
+            Ingreso nuevoIngreso = new Ingreso();
+            java.util.Date fecha = new Date();
+            nuevoIngreso.setFechaingreso(fecha);
+            nuevoIngreso.setHoraentradaingreso(fecha);
+            e = empleadoLogica.Consultarxcedula(Integer.parseInt(txtNitEmpleado.getValue().toString()));
+            nuevoIngreso.setEmpleadoingreso(e);
+            if (e.getEstadoempleado().equals("ACTIVO")) {
+                nuevoIngreso.setAutorizadoingreso("Autorizado");
+            } else {
+                nuevoIngreso.setAutorizadoingreso("No Autorizado");
+            }
+
+            ingresoLogica.registrarIngreso(nuevoIngreso);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Muy bien:", "Se registró correctamente"));
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", ex.getMessage()));
+            Logger.getLogger(IngresoVista.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void cerrarSesion() {
         try {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().remove("usuario");
             FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml");
@@ -70,5 +113,5 @@ public class IngresoVista {
             Logger.getLogger(UsuarioVista.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

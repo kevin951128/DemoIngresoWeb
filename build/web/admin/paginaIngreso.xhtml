@@ -18,7 +18,10 @@
             <p:layout fullPage="true">
 
                 <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true" >
+                    <br></br>
+                    <div align="center">
                     Aplicación Web Multinivel
+                    </div>
                 </p:layoutUnit>
 
                 <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
@@ -32,6 +35,7 @@
                                 <p:menuitem value="Contratista" url="paginaContratistas.xhtml" />
                                 <p:menuitem value="Ingreso" url="paginaIngreso.xhtml" />
                                 <p:menuitem value="Empleados" url="paginaEmpleado.xhtml" />
+                                <p:menuitem value="Salir" action="#{usuarioVista.cerrarSesion()}"/>
                             </p:submenu>
                         </p:menu>
                     </h:form>
@@ -40,24 +44,16 @@
                 <p:layoutUnit position="center">
 
                     <h:form id="formularioIngreso">
-                        <!--
+                        
                         <p:messages id="mensajes" showDetail="true"/>
                         <p:panelGrid columns ="4">
-                            <h:outputText value="Número ingreso:"/>
-                            <p:inputText id="txtNit" binding="#{contratistaVista.txtNitContratista}" rendered="true" requiredMessage="El nit es obligatorio"/>
-                            <h:outputText value="Nombre:"/>
-                            <p:inputText id="txtNombre" binding="#{contratistaVista.txtNombreContratista}"/>
-                            <h:outputText value="Estado:"/>
-                            <p:selectOneMenu id="cmbEstado" binding="#{contratistaVista.cmbEstadoContratista}">
-                                <f:selectItem itemLabel="ACTIVO" itemValue="ACTIVO"/>
-                                <f:selectItem itemLabel="INACTIVO" itemValue="INACTIVO"/>
-                            </p:selectOneMenu>
+                            <h:outputText value="Nit empleado:"/>
+                            <p:inputText id="txtNitEmpleado" binding="#{ingresoVista.txtNitEmpleado}"/>
                         </p:panelGrid>
                         <p:commandButton value="Registrar" 
-                                         actionListener="#{contratistaVista.registrarContratista()}" 
+                                         actionListener="#{ingresoVista.registrarIngreso()}" 
                                          update="formularioIngreso"/>
                     
-                        -->
 
                         <p:dataTable var="i" value="#{ingresoVista.listaIngresos}" rows="10"
                                      paginator="true"

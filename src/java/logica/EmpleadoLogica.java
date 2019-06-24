@@ -55,7 +55,8 @@ public class EmpleadoLogica implements EmpleadoLogicaLocal {
 
     @Override
     public Empleado Consultarxcedula(Integer cedula) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Empleado objEmpleado = empleadoDAO.findxCedula(cedula);
+        return objEmpleado;
     }
 
     // Add business logic below. (Right-click in editor and choose
