@@ -23,6 +23,7 @@ import modelo.Ingreso;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
+import org.primefaces.event.SelectEvent;
 import persistencia.IngresoFacadeLocal;
 
 /**
@@ -102,6 +103,21 @@ public class IngresoVista {
         } catch (Exception ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", ex.getMessage()));
             Logger.getLogger(IngresoVista.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void seleccionarIngreso(SelectEvent e){
+        selectedIngreso = (Ingreso) e.getObject();
+        txtNitEmpleado.setValue(selectedIngreso.getEmpleadoingreso().getCedulaempleado());
+    }
+    
+    public void eliminarIngreso(){
+        try {
+            ingresoLogica.eliminarIngreso(selectedIngreso);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Muy bien:", "Se eliminó correctamente"));
+        } catch (Exception ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error:", ex.getMessage()));
+            Logger.getLogger(ContratistaVista.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

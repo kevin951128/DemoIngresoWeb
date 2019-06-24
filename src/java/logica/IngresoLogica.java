@@ -44,4 +44,18 @@ public class IngresoLogica implements IngresoLogicaLocal {
     public List<Ingreso> consultarIngresos() {
         return ingresoDAO.findAll();
     }
+
+    @Override
+    public void eliminarIngreso(Ingreso i) throws Exception {
+        if (i == null) {
+            throw new Exception("Error, los campos son obligatorios");
+        }
+        Ingreso objBorrar = ingresoDAO.find(i.getNumeroingreso());
+        if(objBorrar == null) {
+            throw new Exception("Error, ingreso no existe");
+        }
+        ingresoDAO.remove(objBorrar);
+    }
+
+    
 }
