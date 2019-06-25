@@ -6,6 +6,7 @@
 package vista;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -74,13 +75,14 @@ public class IngresoVista {
     }
 
     public List<Ingreso> getIngresosNoAprovados() {
-        listaIngresos = ingresoLogica.consultarIngresos();
-        
-        for (int i = 0; i < listaIngresos.size(); i++) {
-            if (listaIngresos.get(i).getAutorizadoingreso().equals("No Autorizado")) {
-                ingresosNoAprovados.add(listaIngresos.get(i));
+        List<Ingreso> ingresos = ingresoLogica.consultarIngresos();
+        ingresosNoAprovados = new ArrayList<>();
+        for (int i = 0; i < ingresos.size(); i++) {
+            if (ingresos.get(i).getAutorizadoingreso().equalsIgnoreCase("No Autorizado")) {
+                ingresosNoAprovados.add(ingresos.get(i));
             }
         }
+        
         return ingresosNoAprovados;
     }
 

@@ -49,9 +49,9 @@
                         <p:messages id="mensajes" showDetail="true"/>
                         <p:panelGrid columns ="4" id="panelC">
                             <h:outputText value="Nit Contratista:"/>
-                            <p:inputText id="txtNitContratista" binding="#{contratosvista.txtCodContratista}" rendered="true" requiredMessage="El nit es obligatorio"/>
+                            <p:inputText id="txtNitContratista" binding="#{contratosvista.txtCodContratista}" required="true" requiredMessage="El nit del contratista es obligatorio"/>
                             <h:outputText value="Cedula Empleado:"/>
-                            <p:inputText id="txtCedulaempleado" binding="#{contratosvista.txtCodEmpleado}"/>
+                            <p:inputText id="txtCedulaempleado" binding="#{contratosvista.txtCodEmpleado}" required="true" requiredMessage="La cédula del empleado es obligatoria"/>
                         </p:panelGrid>
                         <p:commandButton value="Registrar" 
                                          actionListener="#{contratosvista.registrarContrato()}" 
@@ -86,11 +86,11 @@
                             </p:column>
 
                             <p:column headerText="Empleado">
-                                <h:outputText value="#{c.codigoempleado.nombreempleado} #{c.codigoempleado.apellidoempleado} " />
+                                <h:outputText value="#{c.codigoempleado.nombreempleado} #{c.codigoempleado.apellidoempleado}" />
                             </p:column>
 
                             <p:column headerText="Fecha">
-                                <h:outputText value="#{c.fechaingreso}" />
+                                <h:outputText value="Mes: #{c.fechaingreso.month+1} día: #{c.fechaingreso.day} año: #{c.fechaingreso.year+1900}" />
                             </p:column>
 
                             <f:facet name="paginatorTopLeft">
