@@ -17,7 +17,7 @@
 
             <p:layout fullPage="true">
 
-                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true" >
+                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
                     <br></br>
                     <div align="center">
                     Aplicación Web Multinivel
@@ -38,60 +38,59 @@
                                 <p:menuitem value="Contratos" url="paginaContratos.xhtml" />
                                 <p:menuitem value="Consultas" url="paginaConsultas.xhtml" />
                                 <p:menuitem value="Salir" action="#{usuarioVista.cerrarSesion()}"/>
+                                
                             </p:submenu>
                         </p:menu>
                     </h:form>
                 </p:layoutUnit>
 
                 <p:layoutUnit position="center">
-
-                    <h:form id="formularioIngreso">
-                        
+                    <h:form id="formularioContratos">
                         <p:messages id="mensajes" showDetail="true"/>
-                        <p:panelGrid columns ="4">
-                            <h:outputText value="Nit empleado:"/>
-                            <p:inputText id="txtNitEmpleado" binding="#{ingresoVista.txtNitEmpleado}"/>
+                        <p:panelGrid columns ="4" id="panelC">
+                            <h:outputText value="Nit Contratista:"/>
+                            <p:inputText id="txtNitContratista" binding="#{contratosvista.txtCodContratista}" rendered="true" requiredMessage="El nit es obligatorio"/>
+                            <h:outputText value="Cedula Empleado:"/>
+                            <p:inputText id="txtCedulaempleado" binding="#{contratosvista.txtCodEmpleado}"/>
                         </p:panelGrid>
                         <p:commandButton value="Registrar" 
-                                         actionListener="#{ingresoVista.registrarIngreso()}" 
-                                         update="formularioIngreso"/>
+                                         actionListener="#{contratosvista.registrarContrato()}" 
+                                         update="formularioContratos"/>
+                        <p:commandButton value="Modificar" 
+                                         actionListener="#{contratosvista.modificarContratos()}" 
+                                         update="formularioContratos"/>
                         <p:commandButton value="Eliminar" 
-                                         action="#{ingresoVista.eliminarIngreso()}" 
-                                         update="formularioIngreso">
-                            <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar ingreso?" icon="pi pi-exclamation-triangle" />
+                                         action="#{contratosvista.eliminarContratos()}" 
+                                         update="formularioContratos">
+                            <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar contrato?" icon="pi pi-exclamation-triangle" />
                         </p:commandButton>
+
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                             <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
                             <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
                         </p:confirmDialog> 
-                    
 
-                        <p:dataTable var="i" value="#{ingresoVista.ingresosNoAprovados}" rows="10"
+
+                        <p:dataTable var="c" value="#{contratosvista.listaContratos}" rows="10"
                                      paginator="true"
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      rowsPerPageTemplate="5,10,15"
-                                     selection="#{ingresoVista.selectedIngreso}"
+                                     selection="#{contratosvista.selectedContratos}"
                                      selectionMode="single"
-                                     rowKey="#{i.numeroingreso}">
-                            <p:column headerText="Fecha de ingreso">
-                                <h:outputText value="Día: #{i.fechaingreso.day} Mes: #{i.fechaingreso.month}" />
+                                     rowKey="#{c.numerocontrato}">
+                            <p:ajax event="rowSelect" 
+                                    listener="#{contratosvista.seleccionarContrato}" 
+                                    update=":formularioContratos:panelC" />
+                            <p:column headerText="Contratista">
+                                <h:outputText value="#{c.codigocontratista.nombrecontratista}" />
                             </p:column>
 
-                            <p:column headerText="Hora de ingreso">
-                                <h:outputText value="#{i.horaentradaingreso.hours}:#{i.horaentradaingreso.minutes}" />
+                            <p:column headerText="Empleado">
+                                <h:outputText value="#{c.codigoempleado.nombreempleado} #{c.codigoempleado.apellidoempleado} " />
                             </p:column>
 
-                            <p:column headerText="Autorización">
-                                <h:outputText value="#{i.autorizadoingreso}" />
-                            </p:column>
-
-
-                            <p:column headerText="Nombre empleado">
-                                <h:outputText value="#{i.empleadoingreso.nombreempleado}" />
-                            </p:column>
-                            
-                            <p:column headerText="Apellido empleado">
-                                <h:outputText value="#{i.empleadoingreso.apellidoempleado}" />
+                            <p:column headerText="Fecha">
+                                <h:outputText value="#{c.fechaingreso}" />
                             </p:column>
 
                             <f:facet name="paginatorTopLeft">
@@ -104,7 +103,6 @@
 
                         </p:dataTable>
                     </h:form>
-
                 </p:layoutUnit>
 
             </p:layout>
