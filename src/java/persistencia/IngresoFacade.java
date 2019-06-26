@@ -5,6 +5,7 @@
  */
 package persistencia;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -29,6 +30,17 @@ public class IngresoFacade extends AbstractFacade<Ingreso> implements IngresoFac
 
     public IngresoFacade() {
         super(Ingreso.class);
+    }
+
+    @Override
+    public List<Ingreso> findxEmpleado(int cedula) {
+        String consulta = "select i from Ingreso i where i.empleadoingreso.cedulaempleado= "+ cedula;
+        try {
+            Query query = em.createQuery(consulta);
+        return query.getResultList();
+        } catch (NoResultException nre) {
+            return null;
+        }
     }
   
 }

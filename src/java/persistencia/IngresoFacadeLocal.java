@@ -25,6 +25,8 @@ public interface IngresoFacadeLocal {
     Ingreso find(Object id);
     
     List<Ingreso> findAll();
+    
+    List<Ingreso> findxEmpleado(int cedula);
 
     List<Ingreso> findRange(int[] range);
 

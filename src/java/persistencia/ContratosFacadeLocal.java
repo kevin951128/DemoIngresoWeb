@@ -27,6 +27,8 @@ public interface ContratosFacadeLocal {
     List<Contratos> findAll();
 
     List<Contratos> findRange(int[] range);
+    
+    List<Contratos> findxEmpleado(int cedula);
 
     int count();
     

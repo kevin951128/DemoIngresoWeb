@@ -52,6 +52,7 @@ public class ContratosVista {
     private CommandButton bntLimpiar;
     private CommandButton bntEliminar;
     private Contratos selectedContratos;
+    private List<Contratos> contratosxEmpleado;
     public ContratosVista() {
     }
 
@@ -118,7 +119,18 @@ public class ContratosVista {
 
     public void setSelectedContratos(Contratos selectedContratos) {
         this.selectedContratos = selectedContratos;
+        
     }
+
+    public List<Contratos> getContratosxEmpleado() {
+        return contratosxEmpleado;
+    }
+
+    public void setContratosxEmpleado(List<Contratos> contratosxEmpleado) {
+        this.contratosxEmpleado = contratosxEmpleado;
+    }
+    
+    
     public void registrarContrato() {
         try {
             Contratos nuevoContratos = new Contratos();
@@ -176,5 +188,10 @@ public class ContratosVista {
             Logger.getLogger(UsuarioVista.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+     public void buscarxEmpleado(){
+        int cedula = Integer.parseInt(txtCodEmpleado.getValue().toString());
+        contratosxEmpleado = contratoLogica.consultaxEmpleado(cedula);
+    }
+     
     
 }

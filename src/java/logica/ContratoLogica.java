@@ -69,5 +69,12 @@ public class ContratoLogica implements ContratoLogicaLocal {
         contratosDAO.remove(objBorrar);
     }
 
+    @Override
+    public List<Contratos> consultaxEmpleado(int cedula) {
+        return contratosDAO.findxEmpleado(cedula);
+    }
+
+   
+
     
 }

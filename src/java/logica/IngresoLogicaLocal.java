@@ -17,5 +17,6 @@ import modelo.Ingreso;
 public interface IngresoLogicaLocal {
     public void registrarIngreso(Ingreso i) throws Exception;
     public List<Ingreso> consultarIngresos();
+    public List<Ingreso> consultaxEmpleado(int cedula);
     public void eliminarIngreso(Ingreso i) throws Exception;
 }

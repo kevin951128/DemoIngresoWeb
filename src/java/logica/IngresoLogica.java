@@ -57,5 +57,10 @@ public class IngresoLogica implements IngresoLogicaLocal {
         ingresoDAO.remove(objBorrar);
     }
 
+    @Override
+    public List<Ingreso> consultaxEmpleado(int cedula) {
+        return ingresoDAO.findxEmpleado(cedula);
+    }
+
     
 }

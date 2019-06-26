@@ -42,6 +42,7 @@ public class IngresoVista {
 
     private List<Ingreso> listaIngresos;
     private List<Ingreso> ingresosNoAprovados;
+    private List<Ingreso> ingresosxEmpleado;
     private InputText txtNitEmpleado;
     private CommandButton bntRegistrar;
     private Ingreso selectedIngreso;
@@ -104,6 +105,16 @@ public class IngresoVista {
         this.selectedIngreso = selectedIngreso;
     }
 
+    public List<Ingreso> getIngresosxEmpleado() {
+        return ingresosxEmpleado;
+    }
+
+    public void setIngresosxEmpleado(List<Ingreso> ingresosxEmpleado) {
+        this.ingresosxEmpleado = ingresosxEmpleado;
+    }
+    
+    
+
     public void registrarIngreso() {
         try {
             Ingreso nuevoIngreso = new Ingreso();
@@ -148,6 +159,11 @@ public class IngresoVista {
         } catch (IOException ex) {
             Logger.getLogger(UsuarioVista.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void buscarxEmpleado(){
+        int cedula = Integer.parseInt(txtNitEmpleado.getValue().toString());
+        ingresosxEmpleado = ingresoLogica.consultaxEmpleado(cedula);
     }
 
 }
