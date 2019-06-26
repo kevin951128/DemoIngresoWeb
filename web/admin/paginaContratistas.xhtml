@@ -68,6 +68,9 @@
                                          update="formularioContratista">
                             <p:confirm header="Confirmación" message="¿Está seguro que desea eliminar contratista?" icon="pi pi-exclamation-triangle" />
                         </p:commandButton>
+                        <p:commandButton value="Cargar de archivo" 
+                                         action="paginaCargaContratistas.xhtml" 
+                                         update="formularioContratista"/>
 
                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                             <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />

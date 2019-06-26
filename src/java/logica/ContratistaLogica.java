@@ -5,9 +5,12 @@
  */
 package logica;
 
+import java.io.File;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import jxl.Sheet;
+import jxl.Workbook;
 import modelo.Contratista;
 import persistencia.ContratistaFacadeLocal;
 
@@ -81,6 +84,32 @@ public class ContratistaLogica implements ContratistaLogicaLocal {
             throw new Exception("El contratista tiene ingresos o contratos asociados");
         }
         contratistaDAO.remove(objBorrar);
+    }
+
+    @Override
+    public String importarDatosContratista(String archivo) throws Exception {
+        int contratistasR = 0; //Contratistas Registrados
+        int contratistasE = 0; //Contratistas Existentes
+        Workbook archivoExcel = Workbook.getWorkbook(new File(archivo));
+        Sheet hoja = archivoExcel.getSheet(0);
+        int filas = hoja.getRows();
+        for(int i = 1; i < filas; i++){
+            Contratista nuevoContratista = new Contratista();
+            nuevoContratista.setNitcontratista(Long.parseLong(hoja.getCell(0, i).getContents()));
+            nuevoContratista.setNombrecontratista(hoja.getCell(1, i).getContents());
+            nuevoContratista.setEstadocontratista("ACTIVO");
+            // Validamos el contratista
+            Contratista objC = contratistaDAO.findxNit(nuevoContratista.getNitcontratista());
+            
+            if (objC == null) {
+                contratistaDAO.create(nuevoContratista);
+                contratistasR++;
+            }else{
+                contratistasE++;
+            }
+                  
+        }
+        return "Se registraton " + contratistasR +  " contratistas y ya existían " + contratistasE;
     }
 
 }
