@@ -46,14 +46,30 @@
                 <p:layoutUnit position="center">
                     <h:form id="formularioCarga">
                         <p:messages id="mensajes" showDetail="true"/>
-                            <p:fileUpload label="Seleccionar"
-                                          fileUploadListener="#{contratistaVista.handleFileUpload}" 
-                                          mode="advanced" dragDropSupport="false"
-                                          update="mensajes" sizeLimit="100000" 
-                                          invalidFileMessage="El archivo debe ser de formato .xls"
-                                          allowTypes="/(\.|\/)(xls)$/" />
+                        <p:fileUpload label="Seleccionar"
+                                      fileUploadListener="#{contratistaVista.handleFileUpload}" 
+                                      mode="advanced" dragDropSupport="false"
+                                      update="mensajes" sizeLimit="100000" 
+                                      invalidFileMessage="El archivo debe ser de formato .xls"
+                                      allowTypes="/(\.|\/)(xls)$/" />
+                    </h:form>
+                    <h:form>
+                        <p:commandButton value="Generar reporte" 
+                                         action="#{contratistaVista.generarReporte()}"
+                                         ajax="false"/>
 
-                        </h:form>
+                    </h:form>
+                    <h:form>
+                        <br></br>
+                        <h:outputText value="Consulta de ingresos por contratista"/>
+                        <br></br>
+                        <h:outputText value="Nit de contratista"/>
+                        <p:inputText id="txtCedula" binding="#{contratistaVista.txtCedula}" rendered="true" requiredMessage="La cedula es obligatorio"/>    
+                        <p:commandButton value="Generar reporte" 
+                                         action="#{contratistaVista.generarReporteParametros()}"
+                                         ajax="false"/>
+
+                    </h:form>
                 </p:layoutUnit>
 
             </p:layout>

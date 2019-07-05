@@ -10,7 +10,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -18,9 +22,19 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import logica.ContratistaLogicaLocal;
 import modelo.Contratista;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import org.primefaces.component.commandbutton.CommandButton;
 import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
@@ -47,6 +61,7 @@ public class ContratistaVista {
     private CommandButton bntLimpiar;
     private CommandButton bntEliminar;
     private Contratista selectedContratista;
+    private InputText txtCedula;
 
     /**
      * Creates a new instance of ContratistaVista
@@ -126,6 +141,16 @@ public class ContratistaVista {
     public void setSelectedContratista(Contratista selectedContratista) {
         this.selectedContratista = selectedContratista;
     }
+
+    public InputText getTxtCedula() {
+        return txtCedula;
+    }
+
+    public void setTxtCedula(InputText txtCedula) {
+        this.txtCedula = txtCedula;
+    }
+    
+    
 
     public void registrarContratista() {
         try {
@@ -216,6 +241,61 @@ public class ContratistaVista {
             //System.out.println("New file created!");
         } catch (IOException e) {
             //System.out.println(e.getMessage());
+        }
+    }
+    
+    public void generarReporte() {
+        try {
+            Connection conn = null;
+            Context initContext = new InitialContext();
+            DataSource ds = (DataSource) initContext.lookup("java:app/jdbc/ingreso");
+            conn = ds.getConnection();
+            File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("reportes/reporteContratistas.jasper"));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), null, conn);
+            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            response.addHeader("Content-disposition", "attachment; filename=reporteContratistas.pdf");
+            ServletOutputStream stream = response.getOutputStream();
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+            FacesContext.getCurrentInstance().responseComplete();
+        } catch (NamingException ex) {
+            Logger.getLogger(ContratistaVista.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ContratistaVista.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JRException ex) {
+            Logger.getLogger(ContratistaVista.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ContratistaVista.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void generarReporteParametros() throws Exception {
+        try {
+            Connection conn = null;
+            Context initContext = new InitialContext();
+            DataSource ds = (DataSource) initContext.lookup("java:app/jdbc/ingreso");
+            conn = ds.getConnection();
+            Long documento = Long.parseLong(txtCedula.getValue().toString());
+            Contratista objC = contratistaLogica.consultarxNit(documento);
+            Map<String, Object> parametros = new HashMap<>();
+            parametros.put("codigo", objC.getCodigocontratista());
+            parametros.put("cedula", documento);
+            parametros.put("nombre", objC.getNombrecontratista());
+            parametros.put("telefono", objC.getEstadocontratista());
+            File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("reportes/reporteIngresosContratista.jasper"));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(), parametros, conn);
+            HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+            response.addHeader("Content-disposition", "attachment; filename=reporteIngresoContratista" + documento + ".pdf");
+            ServletOutputStream stream = response.getOutputStream();
+            JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+            FacesContext.getCurrentInstance().responseComplete();
+        } catch (NamingException ex) {
+            Logger.getLogger(ContratistaVista.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(ContratistaVista.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JRException ex) {
+            Logger.getLogger(ContratistaVista.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ContratistaVista.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

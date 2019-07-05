@@ -112,4 +112,9 @@ public class ContratistaLogica implements ContratistaLogicaLocal {
         return "Se registraton " + contratistasR +  " contratistas y ya existían " + contratistasE;
     }
 
+    @Override
+    public Contratista consultarxNit(Long nit) throws Exception {
+        return contratistaDAO.findxNit(nit);
+    }
+
 }

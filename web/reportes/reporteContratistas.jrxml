@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dc843bab-c2fd-4bba-9ccf-afeec8f09f27">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select * from contratista]]>
+	</queryString>
+	<field name="nitcontratista" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombrecontratista" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estadocontratista" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigocontratista" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" uuid="65e917e7-b5fc-4142-9fd1-fa9f565ba001"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial Black" size="28" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE CONTRATISTAS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="29" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="185" height="20" uuid="1485597d-d5bc-43f0-891d-706f0fac494d"/>
+				<box>
+					<pen lineWidth="0.75" lineStyle="Double"/>
+					<topPen lineWidth="0.75" lineStyle="Double"/>
+					<leftPen lineWidth="0.75" lineStyle="Double"/>
+					<bottomPen lineWidth="0.75" lineStyle="Double"/>
+					<rightPen lineWidth="0.75" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[NIT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="185" y="0" width="185" height="20" uuid="2b1874a1-56b2-459d-b7fc-ef5866365acc"/>
+				<box>
+					<pen lineWidth="0.75" lineStyle="Double"/>
+					<topPen lineWidth="0.75" lineStyle="Double"/>
+					<leftPen lineWidth="0.75" lineStyle="Double"/>
+					<bottomPen lineWidth="0.75" lineStyle="Double"/>
+					<rightPen lineWidth="0.75" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="0" width="185" height="20" uuid="fc63efa2-447f-40e5-a46b-4cfeb688a3a3"/>
+				<box>
+					<pen lineWidth="0.75" lineStyle="Double"/>
+					<topPen lineWidth="0.75" lineStyle="Double"/>
+					<leftPen lineWidth="0.75" lineStyle="Double"/>
+					<bottomPen lineWidth="0.75" lineStyle="Double"/>
+					<rightPen lineWidth="0.75" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ESTADO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="185" height="20" uuid="5836358c-c374-4f08-a498-aef1c5f5db12"/>
+				<box>
+					<pen lineWidth="0.75" lineStyle="Double"/>
+					<topPen lineWidth="0.75" lineStyle="Double"/>
+					<leftPen lineWidth="0.75" lineStyle="Double"/>
+					<bottomPen lineWidth="0.75" lineStyle="Double"/>
+					<rightPen lineWidth="0.75" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nitcontratista}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="185" y="0" width="185" height="20" uuid="f5367753-abc3-446f-b1db-243d2eb64bd6"/>
+				<box>
+					<pen lineWidth="0.75" lineStyle="Double"/>
+					<topPen lineWidth="0.75" lineStyle="Double"/>
+					<leftPen lineWidth="0.75" lineStyle="Double"/>
+					<bottomPen lineWidth="0.75" lineStyle="Double"/>
+					<rightPen lineWidth="0.75" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nombrecontratista}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="0" width="185" height="20" uuid="7cfc6add-a25f-477d-9a47-83c8aab59a51"/>
+				<box>
+					<pen lineWidth="0.75" lineStyle="Double"/>
+					<topPen lineWidth="0.75" lineStyle="Double"/>
+					<leftPen lineWidth="0.75" lineStyle="Double"/>
+					<bottomPen lineWidth="0.75" lineStyle="Double"/>
+					<rightPen lineWidth="0.75" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{estadocontratista}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="389" y="4" width="166" height="20" uuid="4b4e4a6d-f85a-42c4-b7a4-dd82810fd781"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="434" y="34" width="80" height="20" uuid="a6a8f3db-743f-4b7c-af1f-3fc85cc2919e"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="514" y="34" width="40" height="20" uuid="c51a4783-e5b7-48b7-8af0-d8525171254f"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
